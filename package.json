@@ -1,7 +1,7 @@
 {
-  "name": "react-native-story-share",
-  "version": "0.6.0",
-  "description": "share your images to instagram and snapchat stories",
+  "name": "@brigad/react-native-instagram-story-share",
+  "version": "1.0.0",
+  "description": "share your images to instagram stories",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,6 @@
   "keywords": [
     "react-native",
     "instagram",
-    "snapchat",
     "story",
     "share"
   ],

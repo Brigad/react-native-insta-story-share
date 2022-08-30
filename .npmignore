@@ -1,2 +1,9 @@
 example
 build
+node_modules/
+.git/
+.vscode/
+.eslintrc.js/
+.gitattributes
+.gitignore
+.prettierrc

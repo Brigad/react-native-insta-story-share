@@ -4,10 +4,6 @@
 target 'example' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-
-  # Pods for example
-  pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit']
-
 end
 
 post_install do |installer|

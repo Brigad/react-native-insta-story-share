@@ -26,23 +26,10 @@ const shareInstagram = curry((onError, type, backgroundAsset, stickerAsset) => {
   }).catch(onError)
 })
 
-// curry is not necessary RNStoryShares functions
-// it returns a new function when only part of the arguments are provided
-// see https://ramdajs.com/docs/#curry
-const shareSnapchat = curry((onError, type, backgroundAsset, stickerAsset) => {
-  RNStoryShare.shareToSnapchat({
-    backgroundAsset,
-    stickerAsset,
-    attributionLink: 'https://google.com/',
-    type,
-  }).catch(onError)
-})
-
 class Root extends React.PureComponent {
   state = {
     error: undefined,
     isInstagramAvailable: false,
-    isSnapchatAvailable: false,
   }
 
   async componentDidMount() {
@@ -56,9 +43,8 @@ class Root extends React.PureComponent {
 
     try {
       const isInstagramAvailable = await RNStoryShare.isInstagramAvailable()
-      const isSnapchatAvailable = await RNStoryShare.isSnapchatAvailable()
 
-      this.setState({ isInstagramAvailable, isSnapchatAvailable })
+      this.setState({ isInstagramAvailable })
     } catch (error) {
       this.setState({ error })
     }
@@ -110,40 +96,12 @@ class Root extends React.PureComponent {
     this._shareInstaFile(uri, uri)
   }
 
-  _shareSnapBase64 = shareSnapchat(this._setError, RNStoryShare.BASE64)
-  _shareSnapBackground = () => {
-    this._shareSnapBase64(base64Background, undefined)
-  }
-  _shareSnapSticker = () => {
-    this._shareSnapBase64(undefined, base64Sticker)
-  }
-  _shareSnapBoth = () => {
-    this._shareSnapBase64(base64Background, base64Sticker)
-  }
-
-  _shareSnapFile = shareSnapchat(this._setError, RNStoryShare.FILE)
-  _shareSnapFileBackground = async () => {
-    const uri = await this._captureScreen()
-
-    this._shareSnapFile(uri, undefined)
-  }
-  _shareSnapFileSticker = async () => {
-    const uri = await this._captureScreen()
-
-    this._shareSnapFile(undefined, uri)
-  }
-  _shareSnapFileBoth = async () => {
-    const uri = await this._captureScreen()
-
-    this._shareSnapFile(uri, uri)
-  }
-
   _setRef = ref => {
     this._ref = ref
   }
 
   render() {
-    const { error, isInstagramAvailable, isSnapchatAvailable } = this.state
+    const { error, isInstagramAvailable } = this.state
 
     return (
       <ScrollView
@@ -181,21 +139,6 @@ class Root extends React.PureComponent {
             <Button onPress={this._shareInstaFileBackground}>Background</Button>
             <Button onPress={this._shareInstaFileSticker}>Sticker</Button>
             <Button onPress={this._shareInstaFileBoth}>Both</Button>
-          </ShareSection>
-
-          <ShareSection
-            title="Snapchat Base64"
-            isAvailable={isSnapchatAvailable}
-          >
-            <Button onPress={this._shareSnapBackground}>Background</Button>
-            <Button onPress={this._shareSnapSticker}>Sticker</Button>
-            <Button onPress={this._shareSnapBoth}>Both</Button>
-          </ShareSection>
-
-          <ShareSection title="Snapchat File" isAvailable={isSnapchatAvailable}>
-            <Button onPress={this._shareSnapFileBackground}>Background</Button>
-            <Button onPress={this._shareSnapFileSticker}>Sticker</Button>
-            <Button onPress={this._shareSnapFileBoth}>Both</Button>
           </ShareSection>
         </ViewShot>
 
