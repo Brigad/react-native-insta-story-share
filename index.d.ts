@@ -1,14 +1,17 @@
 declare module "@brigad/react-native-instagram-story-share" {
   type ShareConfigObject = {
     type: "base64" | "file",
-    attributionLink: string,
-    backgroundAsset: string,
+    media: 'photo' | 'video',
+    attributionLink?: string,
+    backgroundBottomColor?: string,
+    backgroundTopColor?: string,
+  } & ({
     stickerAsset: string,
-    stickerOptions: {
-      height: integer,
-      width: integer
-    }
-  }
+    backgroundAsset?: string,
+  } | {
+    stickerAsset?: string,
+    backgroundAsset: string,
+  });
 
   const RNStoryShare: {
     isInstagramAvailable(): Promise<boolean>

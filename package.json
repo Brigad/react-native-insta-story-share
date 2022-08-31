@@ -1,6 +1,6 @@
 {
   "name": "@brigad/react-native-instagram-story-share",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "share your images to instagram stories",
   "main": "index.js",
   "scripts": {
